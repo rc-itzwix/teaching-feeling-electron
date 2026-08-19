@@ -27,6 +27,7 @@ jobs:
       - name: Initialize iOS Platform
         run: |
           npx cap add ios
+          sed -i '' -E "s/platform :ios, '[0-9.]+'/platform :ios, '17.0'/g" ios/App/Podfile
           npx cap sync ios
 
       - name: Compile IPA
