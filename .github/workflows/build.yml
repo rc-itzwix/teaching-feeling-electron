@@ -24,10 +24,11 @@ jobs:
       - name: Install Capacitor
         run: npm install @capacitor/cli @capacitor/core @capacitor/ios --save-dev
 
-      - name: Initialize iOS Platform & Fix Podfile
+      - name: Initialize iOS Platform & Fix Target
         run: |
           npx cap add ios || true
-          sed -i '' -E "s/platform :ios, '[0-9.]+'/platform :ios, '17.0'/g" ios/App/Podfile
+          sed -i '' -E "s/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]+;/IPHONEOS_DEPLOYMENT_TARGET = 15.0;/g" ios/App/App.xcodeproj/project.pbxproj
+          sed -i '' -E "s/platform :ios, '[0-9.]+'/platform :ios, '15.0'/g" ios/App/Podfile
           pod install --project-directory=ios/App
 
       - name: Compile IPA
@@ -37,6 +38,7 @@ jobs:
             -configuration Release \
             -destination 'generic/platform=iOS' \
             -archivePath build/App.xcarchive \
+            IPHONEOS_DEPLOYMENT_TARGET=15.0 \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
