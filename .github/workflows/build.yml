@@ -11,6 +11,16 @@ jobs:
         with:
           node-version: 20
 
+      - name: Prepare www folder
+        run: |
+          mkdir -p www
+          cp index.html www/ || true
+          cp main.js www/ || true
+          cp lang.js www/ || true
+          cp -r tyrano www/ || true
+          cp -r res www/ || true
+          cp -r data www/ || true
+
       - name: Install Capacitor
         run: npm install @capacitor/cli @capacitor/core @capacitor/ios --save-dev
 
