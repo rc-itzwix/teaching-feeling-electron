@@ -1,7 +1,7 @@
 {
   "appId": "com.game.teachingfeeling",
   "appName": "Teaching Feeling",
-  "webDir": ".",
+  "webDir": "www",
   "bundledWebRuntime": false,
   "server": {
     "iosScheme": "capacitor"
