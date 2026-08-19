@@ -22,13 +22,13 @@ jobs:
           cp -r data www/ || true
 
       - name: Install Capacitor
-        run: |
-          npm install @capacitor/cli @capacitor/core @capacitor/ios --save-dev
-          find node_modules/@capacitor/ios -name "Podfile" -exec sed -i '' -E "s/platform :ios, '[0-9.]+'/platform :ios, '17.0'/g" {} +
+        run: npm install @capacitor/cli @capacitor/core @capacitor/ios --save-dev
 
-      - name: Initialize iOS Platform
+      - name: Initialize iOS Platform & Fix Podfile
         run: |
-          npx cap add ios
+          npx cap add ios || true
+          sed -i '' -E "s/platform :ios, '[0-9.]+'/platform :ios, '17.0'/g" ios/App/Podfile
+          pod install --project-directory=ios/App
 
       - name: Compile IPA
         run: |
